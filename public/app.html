@@ -6,6 +6,7 @@
 <title>AniStream — Votre catalogue d'animés</title>
 <meta name="description" content="Catalogue et suivi personnalisé de vos animés, style streaming." />
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="./config.js"></script>
 <script>
   tailwind.config = {
     theme: {
@@ -127,6 +128,13 @@
 </div>
 
 <script>
+/* ============ CONFIG ============ */
+const CFG = window.ANISTREAM_CONFIG || {};
+const JIKAN = CFG.JIKAN_BASE_URL || 'https://api.jikan.moe/v4';
+const WAIFU = CFG.WAIFU_BASE_URL || 'https://api.waifu.pics/sfw/waifu';
+const API_HEADERS = CFG.ANIME_API_KEY ? { 'Authorization': `Bearer ${CFG.ANIME_API_KEY}` } : {};
+const apiFetch = (url) => fetch(url, { headers: API_HEADERS });
+
 /* ============ STATE ============ */
 const STORAGE_KEY = 'anistream:mylist:v1';
 let myList = loadList();
