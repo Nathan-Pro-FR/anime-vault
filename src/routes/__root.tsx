@@ -77,14 +77,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Anime Stream Save — Catalogue et suivi d'animés" },
+      { name: "description", content: "Recherchez, découvrez et sauvegardez vos animés préférés dans une interface cinématique inspirée des grandes plateformes de streaming." },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Anime Stream Save — Catalogue et suivi d'animés" },
+      { property: "og:description", content: "Recherchez, découvrez et sauvegardez vos animés préférés dans une interface cinématique inspirée des grandes plateformes de streaming." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Anime Stream Save — Catalogue et suivi d'animés" },
+      { name: "twitter:description", content: "Recherchez, découvrez et sauvegardez vos animés préférés dans une interface cinématique inspirée des grandes plateformes de streaming." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a37bbd32-a0ec-43ea-812b-9b760fe26176/id-preview-76c46665--8de6d71c-d798-4e10-8a9a-dcf7888ca5fb.lovable.app-1783867127816.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/a37bbd32-a0ec-43ea-812b-9b760fe26176/id-preview-76c46665--8de6d71c-d798-4e10-8a9a-dcf7888ca5fb.lovable.app-1783867127816.png" },
     ],
     links: [
       {
