@@ -6,6 +6,7 @@
 <title>AniStream — Votre catalogue d'animés</title>
 <meta name="description" content="Catalogue et suivi personnalisé de vos animés, style streaming." />
 <script src="https://cdn.tailwindcss.com"></script>
+<script src="./config.js"></script>
 <script>
   tailwind.config = {
     theme: {
@@ -127,6 +128,13 @@
 </div>
 
 <script>
+/* ============ CONFIG ============ */
+const CFG = window.ANISTREAM_CONFIG || {};
+const JIKAN = CFG.JIKAN_BASE_URL || 'https://api.jikan.moe/v4';
+const WAIFU = CFG.WAIFU_BASE_URL || 'https://api.waifu.pics/sfw/waifu';
+const API_HEADERS = CFG.ANIME_API_KEY ? { 'Authorization': `Bearer ${CFG.ANIME_API_KEY}` } : {};
+const apiFetch = (url) => fetch(url, { headers: API_HEADERS });
+
 /* ============ STATE ============ */
 const STORAGE_KEY = 'anistream:mylist:v1';
 let myList = loadList();
@@ -215,7 +223,7 @@ async function runSearch(query) {
   loading.classList.remove('hidden');
   loading.classList.add('flex');
   try {
-    const res = await fetch(`https://api.jikan.moe/v4/anime?q=${encodeURIComponent(query)}&limit=18&sfw=true`);
+    const res = await apiFetch(`${JIKAN}/anime?q=${encodeURIComponent(query)}&limit=18&sfw=true`);
     const data = await res.json();
     loading.classList.add('hidden');
     if (!data.data || data.data.length === 0) {
@@ -242,7 +250,7 @@ async function openAnime(id) {
   const view = document.getElementById('detailView');
   view.innerHTML = `<div class="py-24 flex flex-col items-center gap-3 text-slate-400"><div class="spinner"></div><p>Chargement de la fiche…</p></div>`;
   try {
-    const res = await fetch(`https://api.jikan.moe/v4/anime/${id}/full`);
+    const res = await apiFetch(`${JIKAN}/anime/${id}/full`);
     const { data: a } = await res.json();
     renderDetail(a);
     loadCharacters(id);
@@ -312,7 +320,7 @@ async function loadCharacters(id) {
   const loading = document.getElementById('charLoading');
   const grid = document.getElementById('charGrid');
   try {
-    const res = await fetch(`https://api.jikan.moe/v4/anime/${id}/characters`);
+    const res = await apiFetch(`${JIKAN}/anime/${id}/characters`);
     const { data } = await res.json();
     loading?.remove();
     const top = (data || []).slice(0, 12);
@@ -363,7 +371,7 @@ async function openCharModal(name, img, role) {
   // Try AnimeChan quote, fallback to Waifu.pics image
   const bonus = document.getElementById('bonusZone');
   try {
-    const r = await fetch('https://api.waifu.pics/sfw/waifu');
+    const r = await apiFetch(WAIFU);
     const j = await r.json();
     bonus.innerHTML = `
       <div class="w-full">
